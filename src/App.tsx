@@ -1,5 +1,7 @@
+import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import User from "./pages/User";
 import "./App.scss";
 
 function App() {
@@ -7,7 +9,10 @@ function App() {
     <div className="wrapper">
       <div className="content">
         <Header />
-        <Home />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user/:user" element={<User />} />
+        </Routes>
       </div>
     </div>
   );
