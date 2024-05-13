@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../../App";
 import axios from "axios";
 import Card from "../../components/Card";
