@@ -1,0 +1,25 @@
+.items {
+  display: flex;
+  column-gap: 10px;
+
+  li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 20%;
+    background-color: #ebf2fa;
+    cursor: pointer;
+
+    &.active {
+      background-color: #b4c7de;
+    }
+
+    &.disabled {
+      cursor: default;
+      background-color: #a9aaab;
+    }
+  }
+}

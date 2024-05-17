@@ -12,7 +12,7 @@ const User = () => {
 
   const onButtonClick = (e) => {
     e.preventDefault();
-    axios.patch(`https://8aacc4e8fbc52395.mokky.dev/users/${user.id}`, user);
+    axios.patch(`https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`, user);
   };
 
   return (
