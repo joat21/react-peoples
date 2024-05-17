@@ -25,7 +25,13 @@ const Registration = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.data));
+      });
+
+    axios
+      .post("https://8aacc4e8fbc52395.mokky.dev/peoples", userToSend)
+      .then((res) => res.data)
+      .then((data) => {
+        localStorage.setItem("user", JSON.stringify(data));
       });
   };
 

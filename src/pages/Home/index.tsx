@@ -26,7 +26,7 @@ const Home = () => {
     <div className="container">
       <div className={styles.items}>
         {data.map((item) => (
-          <Link to={`/user/${item.id}`} key={item.id} state={item.id}>
+          <Link to={`/user/${item.id}`} key={item.id} state={item}>
             <Card {...item} />
           </Link>
         ))}

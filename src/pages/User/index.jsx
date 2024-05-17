@@ -5,9 +5,10 @@ import styles from "./User.module.scss";
 import axios from "axios";
 
 const User = () => {
-  const id = useLocation().state;
-  const { data, setData } = useContext(DataContext);
-  const [user, setUser] = useState(data[id - 1]);
+  const item = useLocation().state;
+  // const id = useLocation().state;
+  // const { data } = useContext(DataContext);
+  const [user, setUser] = useState(item);
   const [isEditing, setIsEditing] = useState(false);
 
   const onButtonClick = (e) => {

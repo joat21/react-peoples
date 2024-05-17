@@ -19,8 +19,10 @@ const Header = () => {
         {localStorage.getItem("token") ? (
           <>
             <Link
-              to={`/user/${JSON.parse(localStorage.getItem("user")).id}`}
-              state={JSON.parse(localStorage.getItem("user")).id}
+              to={`/user/${JSON.parse(localStorage.getItem("user")).firstName}${
+                JSON.parse(localStorage.getItem("user")).lastName
+              }`}
+              state={JSON.parse(localStorage.getItem("user"))}
             >
               Profile
             </Link>
