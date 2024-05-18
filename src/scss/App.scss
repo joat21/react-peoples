@@ -1,7 +1,9 @@
-@import "./normalize";
+@import "./libs/normalize";
+@import "./components/button";
+@import "./variables";
 
 body {
-  background-color: #ebf2fa;
+  background-color: $blue;
 }
 
 // #root {
@@ -46,5 +48,14 @@ body {
 
   @media (max-width: 390px) {
     padding: 15px;
+  }
+}
+
+a {
+  transition: color $duration ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: darken($color: $blue, $amount: 20%);
   }
 }

@@ -1,6 +1,7 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./Registration.module.scss";
-import { useState } from "react";
 
 const Registration = () => {
   const [user, setUser] = useState({
@@ -10,6 +11,8 @@ const Registration = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
   const onRegister = (e) => {
     e.preventDefault();
@@ -32,51 +35,62 @@ const Registration = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("user", JSON.stringify(data));
+        navigate("/");
       });
   };
 
   return (
-    <form>
-      <input
-        type="text"
-        placeholder="First Name"
-        value={user.firstName}
-        onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-        required
-      />
-      <br />
-      <input
-        type="text"
-        placeholder="Last Name"
-        value={user.lastName}
-        onChange={(e) => setUser({ ...user, lastName: e.target.value })}
-        required
-      />
-      <br />
-      <input
-        type="text"
-        placeholder="Avatar URL"
-        value={user.avatar}
-        onChange={(e) => setUser({ ...user, avatar: e.target.value })}
-      />
-      <br />
-      <input
-        type="text"
-        placeholder="Email"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-        required
-      />
-      <br />
-      <input
-        type="password"
-        placeholder="Password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        required
-      />
-      <button onClick={(e) => onRegister(e)}>Register</button>
-    </form>
+    <div className={styles.root}>
+      <div className={styles.title}>
+        <h2>Добро пожаловать в React Peoples!</h2>
+        <span>сообщество каких-то людей</span>
+      </div>
+      <form>
+        <input
+          type="text"
+          placeholder="Имя"
+          value={user.firstName}
+          onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Фамилия"
+          value={user.lastName}
+          onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Ссылка на аватарку"
+          value={user.avatar}
+          onChange={(e) => setUser({ ...user, avatar: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Пароль"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+          required
+        />
+        <button className="button" onClick={(e) => onRegister(e)}>
+          Создать аккаунт
+        </button>
+      </form>
+      <span>
+        Уже есть аккаунт?
+        <Link className={styles.link} to="/authorization">
+          Войти
+        </Link>
+      </span>
+    </div>
   );
 };
 

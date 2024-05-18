@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { DataContext } from "../../App";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.scss";
 
 const Header = () => {
   const navigate = useNavigate();
+  const { isAuthorized, setIsAuthorized } = useContext(DataContext);
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div className={styles.header}>
       <div className={`container ${styles.container}`}>
@@ -12,34 +17,26 @@ const Header = () => {
             <img src={logo} alt="Logo" />
             <div className={styles.text}>
               <h1>React Peoples</h1>
-              <p>there are some people here</p>
+              <p>здесь какие-то люди</p>
             </div>
           </div>
         </Link>
-        {localStorage.getItem("token") ? (
-          <>
-            <Link
-              to={`/user/${JSON.parse(localStorage.getItem("user")).firstName}${
-                JSON.parse(localStorage.getItem("user")).lastName
-              }`}
-              state={JSON.parse(localStorage.getItem("user"))}
-            >
-              Profile
+        {isAuthorized && (
+          <div className={styles.profile}>
+            <Link to={`/user/${user.firstName}${user.lastName}`} state={user}>
+              Профиль
             </Link>
             <button
+              className={`button ${styles.btn}`}
               onClick={() => {
-                localStorage.clear();
+                setIsAuthorized(false);
                 navigate("/registration");
+                localStorage.clear();
               }}
             >
-              Log Out
+              Выйти
             </button>
-          </>
-        ) : (
-          <>
-            <Link to="/registration">Register</Link>
-            <Link to="/authorization">Auth</Link>
-          </>
+          </div>
         )}
       </div>
     </div>

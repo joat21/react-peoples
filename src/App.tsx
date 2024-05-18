@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import User from "./pages/User";
 import Registration from "./pages/Registation";
 import Authorization from "./pages/Authorization";
-import "./App.scss";
+import "./scss/App.scss";
 
 export const DataContext = React.createContext({});
 
 function App() {
   const [data, setData] = useState([]);
+  const [isAuthorized, setIsAuthorized] = useState(
+    !!localStorage.getItem("token")
+  );
 
   return (
     <div className="wrapper">
       <div className="content">
-        <DataContext.Provider value={{ data, setData }}>
+        <DataContext.Provider
+          value={{ data, setData, isAuthorized, setIsAuthorized }}
+        >
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />

@@ -64,10 +64,18 @@
     }
   }
 
+  .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 10px;
+  }
+
   .btn {
     display: flex;
+    justify-content: center;
     align-items: center;
-    line-height: 23px;
+    // line-height: 23px;
     padding: 12px 25px;
 
     @media (max-width: 480px) {

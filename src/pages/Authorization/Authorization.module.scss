@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+  padding: 50px;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+    input {
+      padding: 12px 20px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      font-size: 16px;
+
+      transition: border-color 0.2s ease-in-out;
+
+      &:hover,
+      &:focus {
+        border-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}
