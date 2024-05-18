@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { DataContext } from "../../App";
 import axios from "axios";
 import styles from "./Registration.module.scss";
 
 const Registration = () => {
+  const { setIsAuthorized } = useContext(DataContext);
+
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -28,14 +31,21 @@ const Registration = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
-      });
-
-    axios
-      .post("https://8aacc4e8fbc52395.mokky.dev/peoples", userToSend)
-      .then((res) => res.data)
-      .then((data) => {
-        localStorage.setItem("user", JSON.stringify(data));
-        navigate("/");
+        return localStorage.getItem("token");
+      })
+      .then((token) => {
+        axios
+          .post("https://8aacc4e8fbc52395.mokky.dev/peoples", userToSend, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => res.data)
+          .then((data) => {
+            localStorage.setItem("user", JSON.stringify(data));
+            setIsAuthorized(true);
+            navigate("/");
+          });
       });
   };
 

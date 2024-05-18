@@ -12,7 +12,7 @@ export const DataContext = React.createContext({});
 function App() {
   const [data, setData] = useState([]);
   const [isAuthorized, setIsAuthorized] = useState(
-    !!localStorage.getItem("token")
+    !!localStorage.getItem("token") && !!localStorage.getItem("user")
   );
 
   return (
