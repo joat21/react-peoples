@@ -32,10 +32,7 @@ const Registration = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
-        localStorage.setItem(
-          "user",
-          JSON.stringify({ firstName, lastName, email, avatar })
-        );
+        localStorage.setItem("user", JSON.stringify(data.data));
         return localStorage.getItem("token");
       })
       .then((token) => {

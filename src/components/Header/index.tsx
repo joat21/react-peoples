@@ -23,7 +23,7 @@ const Header = () => {
         </Link>
         {isAuthorized && (
           <div className={styles.profile}>
-            <Link to={`/user/${user.firstName}${user.lastName}`} state={user}>
+            <Link to={`/user/${user.id}`} state={user}>
               <span>
                 {user.firstName} {user.lastName}
               </span>

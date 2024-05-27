@@ -8,35 +8,32 @@ const User = () => {
   const item = useLocation().state;
   const [user, setUser] = useState(item);
   const [isEditing, setIsEditing] = useState(false);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
 
-  const onButtonClick = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
     axios.patch(`https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`, user, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
 
-    axios
-      .patch(
-        `https://8aacc4e8fbc52395.mokky.dev/users/${localStorage.getItem(
-          "userId"
-        )}`,
-        user,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      )
-      .then(() => localStorage.setItem("user", JSON.stringify(user)));
+    const res = await axios.patch(
+      `https://8aacc4e8fbc52395.mokky.dev/users/${user.id}`,
+      user
+    );
+
+    if (user.id === currentUser.id) {
+      localStorage.setItem("user", JSON.stringify(res.data));
+    }
   };
 
   return (
     <div>
       <img src={user.avatar} alt="user" />
       {isEditing ? (
-        <form>
+        <form onSubmit={onSubmit}>
           <input
             type="text"
             value={user.firstName}
@@ -55,7 +52,7 @@ const User = () => {
             onChange={(e) => setUser({ ...user, email: e.target.value })}
           />
           <br />
-          <button onClick={(e) => onButtonClick(e)}>Save</button>
+          <button type="submit">Save</button>
         </form>
       ) : (
         <div className={styles.info}>
@@ -66,7 +63,9 @@ const User = () => {
           <span className={styles.mail}>{user.email}</span>
         </div>
       )}
-      <button onClick={() => setIsEditing(!isEditing)}>Edit</button>
+      <button type="button" onClick={() => setIsEditing(!isEditing)}>
+        Edit
+      </button>
     </div>
   );
 };
