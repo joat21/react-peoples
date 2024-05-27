@@ -1,0 +1,25 @@
+.root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 30px;
+  padding: 100px;
+
+  img {
+    width: 110px;
+    border-radius: 50%;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}

@@ -4,4 +4,11 @@
   grid-template-rows: repeat(1, 1fr);
   grid-column-gap: 50px;
   grid-row-gap: 65px;
+  margin-bottom: 40px;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -40,9 +40,11 @@ const Home = () => {
         <>
           <div className={styles.items}>
             {data.map((item) => (
-              <Link to={`/user/${item.id}`} key={item.id} state={item}>
-                <Card {...item} />
-              </Link>
+              <div key={item.id} className={styles["card-wrapper"]}>
+                <Link to={`/user/${item.id}`} state={item}>
+                  <Card {...item} />
+                </Link>
+              </div>
             ))}
           </div>
           <Pagination

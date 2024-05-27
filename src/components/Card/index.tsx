@@ -4,11 +4,12 @@ const Card = (props) => {
   const { avatar, firstName, lastName, email } = props;
   return (
     <div className={styles.card}>
-      <img className={styles.image} src={avatar} alt="alt" />
+      <img src={avatar} alt={`${firstName} ${lastName}`} />
       <div className={styles.info}>
-        <span className={styles["first-name"]}>{firstName}</span>
-        <span className={styles["last-name"]}>{lastName}</span>
-        <span className={styles.mail}>{email}</span>
+        <span>
+          {firstName} {lastName}
+        </span>
+        <span>{email}</span>
       </div>
     </div>
   );
