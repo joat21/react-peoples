@@ -6,14 +6,30 @@ import axios from "axios";
 
 const User = () => {
   const item = useLocation().state;
-  // const id = useLocation().state;
-  // const { data } = useContext(DataContext);
   const [user, setUser] = useState(item);
   const [isEditing, setIsEditing] = useState(false);
 
   const onButtonClick = (e) => {
     e.preventDefault();
-    axios.patch(`https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`, user);
+    axios.patch(`https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`, user, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    axios
+      .patch(
+        `https://8aacc4e8fbc52395.mokky.dev/users/${localStorage.getItem(
+          "userId"
+        )}`,
+        user,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+      .then(() => localStorage.setItem("user", JSON.stringify(user)));
   };
 
   return (

@@ -17,7 +17,7 @@ const Registration = () => {
 
   const navigate = useNavigate();
 
-  const onRegister = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const userToSend = { ...user };
@@ -25,24 +25,32 @@ const Registration = () => {
       userToSend.avatar =
         "https://sun3-22.userapi.com/impf/DW4IDqvukChyc-WPXmzIot46En40R00idiUAXw/l5w5aIHioYc.jpg?quality=96&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&sign=10ad7d7953daabb7b0e707fdfb7ebefd&u=I6EtahnrCRLlyd0MhT2raQt6ydhuyxX4s72EHGuUSoM&cs=400x400";
     }
+    const { firstName, lastName, email, avatar } = userToSend;
 
     axios
       .post("https://8aacc4e8fbc52395.mokky.dev/register", userToSend)
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ firstName, lastName, email, avatar })
+        );
         return localStorage.getItem("token");
       })
       .then((token) => {
         axios
-          .post("https://8aacc4e8fbc52395.mokky.dev/peoples", userToSend, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
+          .post(
+            "https://8aacc4e8fbc52395.mokky.dev/peoples",
+            { firstName, lastName, email, avatar },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
           .then((res) => res.data)
-          .then((data) => {
-            localStorage.setItem("user", JSON.stringify(data));
+          .then(() => {
             setIsAuthorized(true);
             navigate("/");
           });
@@ -55,7 +63,7 @@ const Registration = () => {
         <h2>Добро пожаловать в React Peoples!</h2>
         <span>сообщество каких-то людей</span>
       </div>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="Имя"
@@ -90,7 +98,7 @@ const Registration = () => {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           required
         />
-        <button className="button" onClick={(e) => onRegister(e)}>
+        <button className="button" type="submit">
           Создать аккаунт
         </button>
       </form>

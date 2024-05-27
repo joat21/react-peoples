@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { DataContext } from "../../App";
 import Card from "../../components/Card";

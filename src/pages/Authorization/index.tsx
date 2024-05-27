@@ -14,7 +14,7 @@ const Authorization = () => {
 
   const navigate = useNavigate();
 
-  const onAuth = (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
     axios
       .post("https://8aacc4e8fbc52395.mokky.dev/auth", authData)
@@ -30,7 +30,7 @@ const Authorization = () => {
   return (
     <div className={styles.root}>
       <h2>Войти в аккаунт</h2>
-      <form>
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="Email"
@@ -47,7 +47,7 @@ const Authorization = () => {
           }
           required
         />
-        <button className="button" onClick={(e) => onAuth(e)}>
+        <button className="button" type="submit">
           Войти
         </button>
       </form>

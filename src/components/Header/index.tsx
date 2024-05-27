@@ -24,7 +24,10 @@ const Header = () => {
         {isAuthorized && (
           <div className={styles.profile}>
             <Link to={`/user/${user.firstName}${user.lastName}`} state={user}>
-              Профиль
+              <span>
+                {user.firstName} {user.lastName}
+              </span>
+              <img src={user.avatar} alt="ava" />
             </Link>
             <button
               className={`button ${styles.btn}`}
