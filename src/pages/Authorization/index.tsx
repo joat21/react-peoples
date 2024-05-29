@@ -1,12 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { DataContext } from "../../App";
+import { useDispatch } from "react-redux";
+import { setIsAuthorized } from "../../redux/slices/authorizationSlice";
+import { setUser } from "../../redux/slices/userSlice";
 import axios from "axios";
 import styles from "./Authorization.module.scss";
 
 const Authorization = () => {
-  const { setIsAuthorized } = useContext(DataContext);
-
+  const dispatch = useDispatch();
   const [authData, setAuthData] = useState({
     email: "",
     password: "",
@@ -21,8 +22,8 @@ const Authorization = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.data));
-        setIsAuthorized(true);
+        dispatch(setUser(data.data));
+        dispatch(setIsAuthorized(true));
         navigate("/");
       });
   };

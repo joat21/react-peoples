@@ -1,14 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { FC, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { DataContext } from "../../App";
-import Card from "../../components/Card";
-import Pagination from "../../components/Pagination";
-import styles from "./Home.module.scss";
+import Peoples from "./components/Peoples";
 
-const Home = () => {
-  const { data, setData, isAuthorized, setIsAuthorized } =
-    useContext(DataContext);
+const Home: FC = () => {
+  const isAuthorized = useSelector((state) => state.authorization.isAuthorized);
+  const [data, setData] = useState([]);
   const [meta, setMeta] = useState({});
   const [pageIndex, setPageIndex] = useState(1);
 
@@ -25,7 +23,6 @@ const Home = () => {
       .then((res) => {
         setData(res.data.items);
         setMeta(res.data.meta);
-        setIsAuthorized(true);
       })
       .catch(function (error) {
         if (error.response.status === 401) {
@@ -37,22 +34,12 @@ const Home = () => {
   return (
     <div className="container">
       {isAuthorized ? (
-        <>
-          <div className={styles.items}>
-            {data.map((item) => (
-              <div key={item.id} className={styles["card-wrapper"]}>
-                <Link to={`/user/${item.id}`} state={item}>
-                  <Card {...item} />
-                </Link>
-              </div>
-            ))}
-          </div>
-          <Pagination
-            meta={meta}
-            pageIndex={pageIndex}
-            setPageIndex={setPageIndex}
-          />
-        </>
+        <Peoples
+          data={data}
+          meta={meta}
+          pageIndex={pageIndex}
+          setPageIndex={setPageIndex}
+        />
       ) : (
         <Navigate to="/registration" />
       )}

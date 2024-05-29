@@ -20,7 +20,8 @@ const Pagination = (props) => {
       {[...Array(meta.total_pages).keys()].map((i) => (
         <li
           className={classNames({ [styles.active]: pageIndex === i + 1 })}
-          key={i + 1}
+          onClick={() => onChangePage(i + 1)}
+          key={i}
         >
           {i + 1}
         </li>

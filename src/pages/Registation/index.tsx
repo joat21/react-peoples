@@ -1,11 +1,13 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { DataContext } from "../../App";
+import { useDispatch } from "react-redux";
 import axios from "axios";
+import { setIsAuthorized } from "../../redux/slices/authorizationSlice";
+import { setUser } from "../../redux/slices/userSlice";
 import styles from "./Registration.module.scss";
 
 const Registration = () => {
-  const { setIsAuthorized } = useContext(DataContext);
+  const dispatch = useDispatch();
 
   const [user, setUser] = useState({
     firstName: "",
@@ -32,7 +34,8 @@ const Registration = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.data));
+        dispatch(setUser(data.data));
+        // localStorage.setItem("user", JSON.stringify(data.data));
         return localStorage.getItem("token");
       })
       .then((token) => {
@@ -48,7 +51,7 @@ const Registration = () => {
           )
           .then((res) => res.data)
           .then(() => {
-            setIsAuthorized(true);
+            dispatch(setIsAuthorized(true));
             navigate("/");
           });
       });

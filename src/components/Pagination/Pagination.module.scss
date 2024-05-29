@@ -9,13 +9,14 @@
     align-items: center;
     width: 40px;
     height: 40px;
-    border: 1px solid #e1e1e1;
+    border: 1px solid #b2babf;
     border-radius: 20%;
-    background-color: #ebf2fa;
+    font-weight: 500;
     cursor: pointer;
 
     &.active {
-      background-color: #b4c7de;
+      border: 2px solid #4b84a6;
+      // background-color: #edf8ff; //#b4c7de;
     }
 
     &.disabled {

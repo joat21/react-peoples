@@ -1,13 +1,11 @@
-import { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { DataContext } from "../../App";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Profile from "./components/Profile";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.scss";
 
 const Header = () => {
-  const navigate = useNavigate();
-  const { isAuthorized, setIsAuthorized } = useContext(DataContext);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const isAuthorized = useSelector((state) => state.authorization.isAuthorized);
 
   return (
     <div className={styles.header}>
@@ -21,26 +19,7 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        {isAuthorized && (
-          <div className={styles.profile}>
-            <Link to={`/user/${user.id}`} state={user}>
-              <span>
-                {user.firstName} {user.lastName}
-              </span>
-              <img src={user.avatar} alt="ava" />
-            </Link>
-            <button
-              className={`button ${styles.btn}`}
-              onClick={() => {
-                setIsAuthorized(false);
-                navigate("/registration");
-                localStorage.clear();
-              }}
-            >
-              Выйти
-            </button>
-          </div>
-        )}
+        {isAuthorized && <Profile />}
       </div>
     </div>
   );
