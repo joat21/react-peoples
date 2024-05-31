@@ -1,3 +1,10 @@
+.filter {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .items {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

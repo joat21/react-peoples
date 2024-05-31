@@ -1,5 +1,5 @@
 export type Meta = {
-  tota_items: number;
+  total_items: number;
   total_pages: number;
   current_page: number;
   per_page: number;

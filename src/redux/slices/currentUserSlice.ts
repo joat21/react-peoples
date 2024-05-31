@@ -8,7 +8,7 @@ interface CurrentUserSliceState {
 
 const initialState: CurrentUserSliceState = {
   currentUser: null,
-  isAuthorized: false,
+  isAuthorized: !!localStorage.getItem("token"),
 };
 
 export const currentUserSlice = createSlice({
@@ -18,6 +18,7 @@ export const currentUserSlice = createSlice({
     setCurrentUser(state, action: PayloadAction<People>) {
       state.currentUser = action.payload;
     },
+
     setIsAuthorized(state, action: PayloadAction<boolean>) {
       state.isAuthorized = action.payload;
     },

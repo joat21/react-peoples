@@ -1,17 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Meta } from "../../entities/model";
 
-interface PaginationSliceState {
+interface FilterSliceState {
   meta: Meta | null;
   activePage: number;
+  searchValue: string;
 }
 
-const initialState: PaginationSliceState = {
+const initialState: FilterSliceState = {
   meta: null,
   activePage: 1,
+  searchValue: "",
 };
 
-export const paginationSlice = createSlice({
+export const filterSlice = createSlice({
   name: "pagination",
   initialState,
   reducers: {
@@ -22,9 +24,13 @@ export const paginationSlice = createSlice({
     setActivePage(state, action: PayloadAction<number>) {
       state.activePage = action.payload;
     },
+
+    setSearchValue(state, action: PayloadAction<string>) {
+      state.searchValue = action.payload;
+    },
   },
 });
 
-export const { setActivePage, setMeta } = paginationSlice.actions;
+export const { setActivePage, setMeta, setSearchValue } = filterSlice.actions;
 
-export default paginationSlice.reducer;
+export default filterSlice.reducer;

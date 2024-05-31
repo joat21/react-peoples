@@ -3,15 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
 import { RootState } from "../../redux/store";
-import { setActivePage } from "../../redux/slices/paginationSlice";
+import { setActivePage } from "../../redux/slices/filterSlice";
 
 import styles from "./Pagination.module.scss";
 
 const Pagination: FC = () => {
-  const meta = useSelector((state: RootState) => state.pagination.meta);
-  const activePage = useSelector(
-    (state: RootState) => state.pagination.activePage
-  );
+  const meta = useSelector((state: RootState) => state.filter.meta);
+  const activePage = useSelector((state: RootState) => state.filter.activePage);
   const dispatch = useDispatch();
 
   const onChangePage = (newActivePage: number) => {

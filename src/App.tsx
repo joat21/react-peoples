@@ -46,6 +46,7 @@ function App() {
           <Route path="/user/:id" element={<User />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/authorization" element={<Authorization />} />
+          <Route path="*" element={<h1>Page not found</h1>} />
         </Routes>
       </div>
     </div>

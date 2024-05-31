@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+
 import Card from "../../../components/Card";
 import Pagination from "../../../components/Pagination";
 
