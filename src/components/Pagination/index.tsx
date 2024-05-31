@@ -2,17 +2,20 @@ import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
+import { RootState } from "../../redux/store";
 import { setActivePage } from "../../redux/slices/paginationSlice";
 
 import styles from "./Pagination.module.scss";
 
 const Pagination: FC = () => {
-  const meta = useSelector((state) => state.pagination.meta);
-  const activePage = useSelector((state) => state.pagination.activePage);
+  const meta = useSelector((state: RootState) => state.pagination.meta);
+  const activePage = useSelector(
+    (state: RootState) => state.pagination.activePage
+  );
   const dispatch = useDispatch();
 
   const onChangePage = (newActivePage: number) => {
-    if (newActivePage < 1 || newActivePage > meta.total_pages) return;
+    if (newActivePage < 1 || newActivePage > meta?.total_pages) return;
     dispatch(setActivePage(newActivePage));
   };
 
@@ -24,7 +27,7 @@ const Pagination: FC = () => {
       >
         {"<"}
       </li>
-      {[...Array(meta.total_pages).keys()].map((i) => (
+      {[...Array(meta?.total_pages).keys()].map((i) => (
         <li
           className={classNames({ [styles.active]: activePage === i + 1 })}
           onClick={() => onChangePage(i + 1)}
@@ -35,7 +38,7 @@ const Pagination: FC = () => {
       ))}
       <li
         className={classNames({
-          [styles.disabled]: activePage === meta.total_pages,
+          [styles.disabled]: activePage === meta?.total_pages,
         })}
         onClick={() => onChangePage(activePage + 1)}
       >

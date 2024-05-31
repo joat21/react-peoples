@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setIsAuthorized } from "./redux/slices/authorizationSlice";
+import { setIsAuthorized } from "./redux/slices/currentUserSlice";
 import { setCurrentUser } from "./redux/slices/currentUserSlice";
 
 import Header from "./components/Header";

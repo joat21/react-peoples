@@ -1,19 +1,29 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { People } from "../../entities/model";
 
-const initialState = {
-  currentUser: {},
+interface CurrentUserSliceState {
+  currentUser: People | null;
+  isAuthorized: boolean;
+}
+
+const initialState: CurrentUserSliceState = {
+  currentUser: null,
+  isAuthorized: false,
 };
 
-export const currnetUserSlice = createSlice({
+export const currentUserSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setCurrentUser(state, action) {
+    setCurrentUser(state, action: PayloadAction<People>) {
       state.currentUser = action.payload;
+    },
+    setIsAuthorized(state, action: PayloadAction<boolean>) {
+      state.isAuthorized = action.payload;
     },
   },
 });
 
-export const { setCurrentUser } = currnetUserSlice.actions;
+export const { setCurrentUser, setIsAuthorized } = currentUserSlice.actions;
 
-export default currnetUserSlice.reducer;
+export default currentUserSlice.reducer;

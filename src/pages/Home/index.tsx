@@ -3,14 +3,21 @@ import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
+import { People } from "../../entities/model";
+
+import { RootState } from "../../redux/store";
 import { setMeta } from "../../redux/slices/paginationSlice";
 
 import Peoples from "./components/Peoples";
 
 const Home: FC = () => {
-  const isAuthorized = useSelector((state) => state.authorization.isAuthorized);
-  const activePage = useSelector((state) => state.pagination.activePage);
-  const [data, setData] = useState([]);
+  const isAuthorized = useSelector(
+    (state: RootState) => state.user.isAuthorized
+  );
+  const activePage = useSelector(
+    (state: RootState) => state.pagination.activePage
+  );
+  const [data, setData] = useState<People[]>([]);
   const dispatch = useDispatch();
 
   useEffect(() => {

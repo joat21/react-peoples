@@ -4,11 +4,15 @@ import { Link } from "react-router-dom";
 
 import Profile from "./components/Profile";
 
+import { RootState } from "../../redux/store";
+
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.scss";
 
 const Header: FC = () => {
-  const isAuthorized = useSelector((state) => state.authorization.isAuthorized);
+  const isAuthorized = useSelector(
+    (state: RootState) => state.user.isAuthorized
+  );
 
   return (
     <div className={styles.header}>

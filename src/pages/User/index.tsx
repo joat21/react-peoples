@@ -1,17 +1,20 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, FormEvent } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 
+import { RootState } from "../../redux/store";
 import { setCurrentUser } from "../../redux/slices/currentUserSlice";
 
+import { People } from "../../entities/model";
+
 import styles from "./User.module.scss";
-import axios from "axios";
 
 const User: FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [user, setUser] = useState();
-  const currentUser = useSelector((state) => state.user.user);
+  const [user, setUser] = useState<People>();
+  const currentUser = useSelector((state: RootState) => state.user.currentUser);
 
   useEffect(() => {
     axios
@@ -25,7 +28,7 @@ const User: FC = () => {
 
   if (!user) return "Loading";
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     axios.patch(`https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`, user, {
@@ -39,7 +42,7 @@ const User: FC = () => {
       user
     );
 
-    if (user.id === currentUser.id) {
+    if (user.id === currentUser?.id) {
       dispatch(setCurrentUser(res.data));
       localStorage.setItem("user", JSON.stringify(res.data));
     }

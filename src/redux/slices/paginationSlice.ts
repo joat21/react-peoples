@@ -1,7 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Meta } from "../../entities/model";
 
-const initialState = {
-  meta: {},
+interface PaginationSliceState {
+  meta: Meta | null;
+  activePage: number;
+}
+
+const initialState: PaginationSliceState = {
+  meta: null,
   activePage: 1,
 };
 
@@ -9,11 +15,11 @@ export const paginationSlice = createSlice({
   name: "pagination",
   initialState,
   reducers: {
-    setMeta(state, action) {
+    setMeta(state, action: PayloadAction<Meta>) {
       state.meta = action.payload;
     },
 
-    setActivePage(state, action) {
+    setActivePage(state, action: PayloadAction<number>) {
       state.activePage = action.payload;
     },
   },

@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setIsAuthorized } from "../../redux/slices/authorizationSlice";
+import { setIsAuthorized } from "../../redux/slices/currentUserSlice";
 import { setCurrentUser } from "../../redux/slices/currentUserSlice";
 
 import styles from "./Registration.module.scss";
@@ -21,7 +21,7 @@ const Registration: FC = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const userDataToSend = { ...userData };

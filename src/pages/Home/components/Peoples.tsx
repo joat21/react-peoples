@@ -3,10 +3,15 @@ import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
 import Pagination from "../../../components/Pagination";
 
+import { People } from "../../../entities/model";
+
 import styles from "../Home.module.scss";
 
-const Peoples: FC = (props) => {
-  const { data, meta, pageIndex, setPageIndex } = props;
+type PeoplesProps = {
+  data: People[];
+};
+
+const Peoples: FC<PeoplesProps> = ({ data }: PeoplesProps) => {
   return (
     <>
       <div className={styles.items}>
@@ -18,11 +23,7 @@ const Peoples: FC = (props) => {
           </div>
         ))}
       </div>
-      <Pagination
-        meta={meta}
-        pageIndex={pageIndex}
-        setPageIndex={setPageIndex}
-      />
+      <Pagination />
     </>
   );
 };

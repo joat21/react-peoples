@@ -1,9 +1,9 @@
-import { FC, useState } from "react";
+import { FC, FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setIsAuthorized } from "../../redux/slices/authorizationSlice";
+import { setIsAuthorized } from "../../redux/slices/currentUserSlice";
 import { setCurrentUser } from "../../redux/slices/currentUserSlice";
 
 import styles from "./Authorization.module.scss";
@@ -17,7 +17,7 @@ const Authorization: FC = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     axios
       .post("https://8aacc4e8fbc52395.mokky.dev/auth", authData)
