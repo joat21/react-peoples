@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
 import { setIsAuthorized } from "../../redux/slices/authorizationSlice";
-import { setUser } from "../../redux/slices/userSlice";
+import { setCurrentUser } from "../../redux/slices/currentUserSlice";
 
 import styles from "./Registration.module.scss";
 
-const Registration = () => {
+const Registration: FC = () => {
   const dispatch = useDispatch();
 
   const [userData, setUserData] = useState({
@@ -36,7 +36,7 @@ const Registration = () => {
       .then((res) => res.data)
       .then((data) => {
         localStorage.setItem("token", data.token);
-        dispatch(setUser(data.data));
+        dispatch(setCurrentUser(data.data));
         return localStorage.getItem("token");
       })
       .then((token) => {

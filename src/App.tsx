@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 
 import { setIsAuthorized } from "./redux/slices/authorizationSlice";
-import { setUser } from "./redux/slices/userSlice";
+import { setCurrentUser } from "./redux/slices/currentUserSlice";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
@@ -29,7 +29,7 @@ function App() {
 
     if (res.status !== 200) return;
 
-    dispatch(setUser(res.data));
+    dispatch(setCurrentUser(res.data));
     dispatch(setIsAuthorized(true));
   }
 
@@ -43,7 +43,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user/:user" element={<User />} />
+          <Route path="/user/:id" element={<User />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/authorization" element={<Authorization />} />
         </Routes>

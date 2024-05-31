@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
@@ -5,7 +6,7 @@ import { setActivePage } from "../../redux/slices/paginationSlice";
 
 import styles from "./Pagination.module.scss";
 
-const Pagination = () => {
+const Pagination: FC = () => {
   const meta = useSelector((state) => state.pagination.meta);
   const activePage = useSelector((state) => state.pagination.activePage);
   const dispatch = useDispatch();

@@ -1,6 +1,14 @@
+import { FC } from "react";
 import styles from "./Card.module.scss";
 
-const Card = (props) => {
+type CardProps = {
+  avatar: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
+const Card: FC<CardProps> = (props: CardProps) => {
   const { avatar, firstName, lastName, email } = props;
   return (
     <div className={styles.card}>

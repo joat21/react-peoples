@@ -9,7 +9,7 @@ import styles from "../Header.module.scss";
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.currentUser);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -38,16 +38,6 @@ const Profile = () => {
           </ul>
         </div>
       )}
-      {/* <button
-        className={`button ${styles.btn}`}
-        onClick={() => {
-          setIsAuthorized(false);
-          navigate("/registration");
-          localStorage.clear();
-        }}
-      >
-        Выйти
-      </button> */}
     </div>
   );
 };

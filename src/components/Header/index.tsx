@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -6,7 +7,7 @@ import Profile from "./components/Profile";
 import logo from "../../assets/logo.svg";
 import styles from "./Header.module.scss";
 
-const Header = () => {
+const Header: FC = () => {
   const isAuthorized = useSelector((state) => state.authorization.isAuthorized);
 
   return (

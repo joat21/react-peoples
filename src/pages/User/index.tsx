@@ -1,12 +1,29 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { FC, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setCurrentUser } from "../../redux/slices/currentUserSlice";
+
 import styles from "./User.module.scss";
 import axios from "axios";
 
-const User = () => {
-  const item = useLocation().state;
-  const [user, setUser] = useState(item);
-  const currentUser = JSON.parse(localStorage.getItem("user"));
+const User: FC = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const [user, setUser] = useState();
+  const currentUser = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    axios
+      .get(`https://8aacc4e8fbc52395.mokky.dev/peoples/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => setUser(res.data));
+  }, []);
+
+  if (!user) return "Loading";
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +40,7 @@ const User = () => {
     );
 
     if (user.id === currentUser.id) {
+      dispatch(setCurrentUser(res.data));
       localStorage.setItem("user", JSON.stringify(res.data));
     }
 
