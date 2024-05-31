@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import axios from "axios";
+
 import { setIsAuthorized } from "../../redux/slices/authorizationSlice";
 import { setUser } from "../../redux/slices/userSlice";
-import axios from "axios";
+
 import styles from "./Authorization.module.scss";
 
 const Authorization = () => {
