@@ -21,16 +21,23 @@ function App() {
   async function fetchUser() {
     if (!token) return;
 
-    const res = await axios.get("https://8aacc4e8fbc52395.mokky.dev/auth_me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const { data, status } = await axios.get(
+        "https://8aacc4e8fbc52395.mokky.dev/auth_me",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    if (res.status !== 200) return;
-
-    dispatch(setCurrentUser(res.data));
-    dispatch(setIsAuthorized(true));
+      if (status === 200) {
+        dispatch(setCurrentUser(data));
+        dispatch(setIsAuthorized(true));
+      }
+    } catch (error) {
+      dispatch(setIsAuthorized(false));
+    }
   }
 
   useEffect(() => {

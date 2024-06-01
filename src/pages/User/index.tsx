@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, FormEvent } from "react";
+import { FC, useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -59,13 +59,17 @@ const User: FC = () => {
 
       if (user.id === currentUser?.id) {
         dispatch(setCurrentUser(res.data));
-        localStorage.setItem("user", JSON.stringify(res.data));
       }
 
       alert("Изменения сохранены");
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
   };
 
   return (
@@ -79,18 +83,24 @@ const User: FC = () => {
       <form id="user-form" onSubmit={onSubmit}>
         <input
           type="text"
+          name="firstName"
           value={user.firstName}
-          onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+          onChange={onChange}
         />
         <input
           type="text"
+          name="lastName"
           value={user.lastName}
-          onChange={(e) => setUser({ ...user, lastName: e.target.value })}
+          onChange={onChange}
         />
+        <input type="text" name="city" value={user.city} onChange={onChange} />
+        <input type="text" name="age" value={user.age} onChange={onChange} />
         <input
           type="text"
+          name="email"
           value={user.email}
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
+          onChange={onChange}
+          readOnly
         />
       </form>
     </div>

@@ -1,29 +1,38 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setAge } from "../../../redux/slices/filterSlice";
+import { setAge, setActivePage } from "../../../redux/slices/filterSlice";
 import { RootState } from "../../../redux/store";
-import { useForm } from "react-hook-form";
 
 const AgeFilter: FC = () => {
   const dispatch = useDispatch();
   const age = useSelector((state: RootState) => state.filter.age);
+
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    dispatch(setAge({ ...age, [name]: Number(value) }));
+    dispatch(setActivePage(1));
+  };
 
   return (
     <div>
       <input
         type="number"
         placeholder="От"
-        onChange={(e) =>
-          dispatch(setAge({ ...age, from: Number(e.target.value) }))
-        }
+        name="from"
+        min={age.from}
+        max={age.to}
+        value={age.from}
+        onChange={onChange}
       />
       <input
         type="number"
         placeholder="До"
-        onChange={(e) =>
-          dispatch(setAge({ ...age, to: Number(e.target.value) }))
-        }
+        name="to"
+        min={age.from}
+        max={age.to}
+        value={age.to}
+        onChange={onChange}
       />
     </div>
   );

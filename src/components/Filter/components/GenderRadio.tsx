@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { ChangeEvent, FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { RootState } from "../../../redux/store";
-import { setGender } from "../../../redux/slices/filterSlice";
+import { setGender, setActivePage } from "../../../redux/slices/filterSlice";
 
 import { Gender } from "../../../entities/model";
 
@@ -18,6 +18,11 @@ const GenderRadio: FC = () => {
   const dispatch = useDispatch();
   const gender = useSelector((state: RootState) => state.filter.gender);
 
+  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setGender(e.target.value));
+    dispatch(setActivePage(1));
+  };
+
   return (
     <div className={styles.gender}>
       Пол
@@ -27,7 +32,7 @@ const GenderRadio: FC = () => {
             type="radio"
             name="gender"
             value={item.value}
-            onChange={(e) => dispatch(setGender(e.target.value))}
+            onChange={onChange}
             checked={item.value === gender}
           />
           {item.label}
