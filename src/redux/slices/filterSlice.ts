@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Meta } from "../../entities/model";
 
 type Age = {
   from: number;
@@ -7,8 +6,8 @@ type Age = {
 };
 
 interface FilterSliceState {
-  meta: Meta | null;
   activePage: number;
+  pagesCount: number;
   searchValue: string;
   gender: string;
   age: Age;
@@ -16,8 +15,8 @@ interface FilterSliceState {
 }
 
 const initialState: FilterSliceState = {
-  meta: null,
   activePage: 1,
+  pagesCount: 0,
   searchValue: "",
   gender: "any",
   age: { from: 14, to: 9999 },
@@ -28,12 +27,12 @@ export const filterSlice = createSlice({
   name: "pagination",
   initialState,
   reducers: {
-    setMeta(state, action: PayloadAction<Meta>) {
-      state.meta = action.payload;
-    },
-
     setActivePage(state, action: PayloadAction<number>) {
       state.activePage = action.payload;
+    },
+
+    setPagesCount(state, action: PayloadAction<number>) {
+      state.pagesCount = action.payload;
     },
 
     setSearchValue(state, action: PayloadAction<string>) {
@@ -56,7 +55,7 @@ export const filterSlice = createSlice({
 
 export const {
   setActivePage,
-  setMeta,
+  setPagesCount,
   setSearchValue,
   setGender,
   setAge,

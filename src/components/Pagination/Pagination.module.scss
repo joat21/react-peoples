@@ -3,7 +3,7 @@
   justify-content: center;
   column-gap: 10px;
 
-  li {
+  button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,6 +12,7 @@
     border: 1px solid #b2babf;
     border-radius: 20%;
     font-weight: 500;
+    background: none;
     cursor: pointer;
 
     &.active {

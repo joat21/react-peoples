@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
@@ -8,41 +8,35 @@ import { setActivePage } from "../../redux/slices/filterSlice";
 import styles from "./Pagination.module.scss";
 
 const Pagination: FC = () => {
-  const meta = useSelector((state: RootState) => state.filter.meta);
   const activePage = useSelector((state: RootState) => state.filter.activePage);
+  const pagesCount = useSelector((state: RootState) => state.filter.pagesCount);
   const dispatch = useDispatch();
 
-  const onChangePage = (newActivePage: number) => {
-    if (newActivePage < 1 || newActivePage > meta?.total_pages) return;
-    dispatch(setActivePage(newActivePage));
-  };
+  console.log(pagesCount);
+
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+  // if (pagesCount > 0) {
+  //   pages = useMemo(() => {
+  //     Array.from({ length: pagesCount }, (_, i) => i + 1);
+  //   }, [pagesCount]);
+  // }
+
+  console.log(pages);
 
   return (
-    <ul className={styles.items}>
-      <li
-        className={classNames({ [styles.disabled]: activePage === 1 })}
-        onClick={() => onChangePage(activePage - 1)}
-      >
-        {"<"}
-      </li>
-      {[...Array(meta?.total_pages).keys()].map((i) => (
-        <li
-          className={classNames({ [styles.active]: activePage === i + 1 })}
-          onClick={() => onChangePage(i + 1)}
-          key={i}
-        >
-          {i + 1}
-        </li>
-      ))}
-      <li
-        className={classNames({
-          [styles.disabled]: activePage === meta?.total_pages,
-        })}
-        onClick={() => onChangePage(activePage + 1)}
-      >
-        {">"}
-      </li>
-    </ul>
+    <div className={styles.items}>
+      {pagesCount > 0 &&
+        pages.map((i) => (
+          <button
+            className={classNames({ [styles.active]: activePage === i })}
+            key={i}
+            onClick={() => dispatch(setActivePage(i))}
+          >
+            {i}
+          </button>
+        ))}
+    </div>
   );
 };
 

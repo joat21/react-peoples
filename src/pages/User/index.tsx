@@ -18,13 +18,9 @@ const User: FC = () => {
 
   const getUser = async () => {
     try {
-      const res = await axios.get(
-        `https://8aacc4e8fbc52395.mokky.dev/peoples/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+      const res = await axios.patch(
+        `https://8aacc4e8fbc52395.mokky.dev/users/${id}`,
+        user
       );
       setUser(res.data);
     } catch (error) {
@@ -42,16 +38,6 @@ const User: FC = () => {
     e.preventDefault();
 
     try {
-      axios.patch(
-        `https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`,
-        user,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
       const res = await axios.patch(
         `https://8aacc4e8fbc52395.mokky.dev/users/${user.id}`,
         user

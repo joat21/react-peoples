@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setIsAuthorized } from "../../redux/slices/currentUserSlice";
-import { setCurrentUser } from "../../redux/slices/currentUserSlice";
+import {
+  setIsAuthorized,
+  setCurrentUser,
+} from "../../redux/slices/currentUserSlice";
 
 import { Gender } from "../../entities/model";
 
@@ -60,22 +62,22 @@ const Registration: FC = () => {
   // Этот список отображается на сайте
   // Из-за особенностей mokky.dev я не могу ограничиться списком users,
   // так как он не поддерживает пагинацию, а хотелось сделать ее через бэкенд
-  const addUserToPeoples = async (token: string, data: UserData) => {
-    try {
-      await axios.post("https://8aacc4e8fbc52395.mokky.dev/peoples", data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  // const addUserToPeoples = async (token: string, data: People) => {
+  //   try {
+  //     await axios.post("https://8aacc4e8fbc52395.mokky.dev/peoples", data, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-      dispatch(setIsAuthorized(true));
-      navigate("/");
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
-        setError("Пользователь с таким email уже существует");
-      }
-    }
-  };
+  //     dispatch(setIsAuthorized(true));
+  //     navigate("/");
+  //   } catch (error) {
+  //     if (axios.isAxiosError(error) && error.response?.status === 401) {
+  //       setError("Пользователь с таким email уже существует");
+  //     }
+  //   }
+  // };
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -88,8 +90,7 @@ const Registration: FC = () => {
     if (!regDataToSend.city) {
       regDataToSend.city = "Город N";
     }
-    const { firstName, lastName, email, avatar, age, gender, city } =
-      regDataToSend;
+
     try {
       // Регистрация пользователя на сайте
       // в ответ вернется токен и пользователь
@@ -102,15 +103,8 @@ const Registration: FC = () => {
 
       localStorage.setItem("token", data.token);
       dispatch(setCurrentUser(data.data));
-      addUserToPeoples(data.token, {
-        firstName,
-        lastName,
-        email,
-        avatar,
-        age,
-        gender,
-        city,
-      });
+      dispatch(setIsAuthorized(true));
+      navigate("/");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
         setError("Пользователь с таким email уже существует");

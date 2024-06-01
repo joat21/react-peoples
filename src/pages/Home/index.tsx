@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import Filter from "../../components/Filter";
+import Peoples from "./components/Peoples";
 
 import { People } from "../../entities/model";
+import { PAGE_SIZE } from "../../entities/constants";
 
 import { RootState } from "../../redux/store";
-import { setMeta } from "../../redux/slices/filterSlice";
+import { setPagesCount } from "../../redux/slices/filterSlice";
 
 import styles from "./Home.module.scss";
 
-import Peoples from "./components/Peoples";
 const Home: FC = () => {
   const isAuthorized = useSelector(
     (state: RootState) => state.user.isAuthorized
@@ -28,19 +29,15 @@ const Home: FC = () => {
   const fetchData = async () => {
     const firstNameParam = searchValue ? `&firstName=${searchValue}*` : "";
     const genderParam = gender !== "any" ? `&gender=${gender}` : "";
-    const ageParam = `&age[from]=${age.from}&age[to]=${age.to}`;
+    const ageParam = `age[from]=${age.from}&age[to]=${age.to}`;
     const cityParam = city ? `&city=${city}*` : "";
+
     try {
       const res = await axios.get(
-        `https://8aacc4e8fbc52395.mokky.dev/peoples?page=${activePage}&limit=6${firstNameParam}${genderParam}${ageParam}${cityParam}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        `https://8aacc4e8fbc52395.mokky.dev/users?${ageParam}${firstNameParam}${genderParam}${cityParam}`
       );
-      setData(res.data.items);
-      dispatch(setMeta(res.data.meta));
+      setData(res.data);
+      dispatch(setPagesCount(Math.ceil(res.data.length / PAGE_SIZE)));
     } catch (error) {
       console.log(error);
     }

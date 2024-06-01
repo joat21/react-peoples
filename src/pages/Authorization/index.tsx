@@ -3,8 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { setIsAuthorized } from "../../redux/slices/currentUserSlice";
-import { setCurrentUser } from "../../redux/slices/currentUserSlice";
+import {
+  setIsAuthorized,
+  setCurrentUser,
+} from "../../redux/slices/currentUserSlice";
 
 import { People } from "../../entities/model";
 
