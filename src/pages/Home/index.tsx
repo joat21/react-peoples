@@ -15,6 +15,8 @@ import { setPagesCount } from "../../redux/slices/filterSlice";
 import styles from "./Home.module.scss";
 
 const Home: FC = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const isAuthorized = useSelector(
     (state: RootState) => state.user.isAuthorized
   );
@@ -33,11 +35,13 @@ const Home: FC = () => {
     const cityParam = city ? `&city=${city}*` : "";
 
     try {
+      setIsLoading(true);
       const res = await axios.get(
         `https://8aacc4e8fbc52395.mokky.dev/users?${ageParam}${firstNameParam}${genderParam}${cityParam}`
       );
       setData(res.data);
       dispatch(setPagesCount(Math.ceil(res.data.length / PAGE_SIZE)));
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -52,7 +56,7 @@ const Home: FC = () => {
       {isAuthorized ? (
         <>
           <Filter />
-          <Peoples data={data} />
+          <Peoples isLoading={isLoading} data={data} />
         </>
       ) : (
         <Navigate to="/registration" />

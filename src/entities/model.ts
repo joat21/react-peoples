@@ -12,9 +12,11 @@ export interface People {
   age: number;
   gender: Gender;
   city: string;
-
-  // Если авторизованный пользователь отправляет patch запрос
-  // то Mokky.dev автоматически добавляет в измененный объект поле user
-  // в котором хранятся данные о пользователе, который совершил изменение
-  user?: any;
 }
+
+export type AuthData = {
+  token: string;
+  data: People;
+};
+
+export type RegData = Omit<People, "id"> & { password: string };

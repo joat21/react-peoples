@@ -17,6 +17,16 @@
   justify-content: center;
   align-items: center;
   row-gap: 10px;
+
+  &-skeleton {
+    padding: 100px;
+  }
+}
+
+.skeleton-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .info {

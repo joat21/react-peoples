@@ -8,14 +8,9 @@ import {
   setCurrentUser,
 } from "../../redux/slices/currentUserSlice";
 
-import { People } from "../../entities/model";
+import { AuthData } from "../../entities/model";
 
 import styles from "./Authorization.module.scss";
-
-type AuthData = {
-  token: string;
-  data: People;
-};
 
 const Authorization: FC = () => {
   const dispatch = useDispatch();
@@ -29,12 +24,9 @@ const Authorization: FC = () => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    let valueToSend = value;
-    if (name === "email") valueToSend = valueToSend.toLowerCase();
-
     setAuthData({
       ...authData,
-      [name]: valueToSend,
+      [name]: value,
     });
   };
 
@@ -71,7 +63,7 @@ const Authorization: FC = () => {
       <form onSubmit={onSubmit}>
         <input
           type="text"
-          placeholder="Email"
+          placeholder="Email*"
           name="email"
           value={authData.email}
           onChange={onChange}
@@ -79,7 +71,7 @@ const Authorization: FC = () => {
         />
         <input
           type="password"
-          placeholder="Пароль"
+          placeholder="Пароль*"
           name="password"
           value={authData.password}
           onChange={onChange}

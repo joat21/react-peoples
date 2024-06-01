@@ -9,6 +9,7 @@ import { setCurrentUser } from "../../redux/slices/currentUserSlice";
 import { People } from "../../entities/model";
 
 import styles from "./User.module.scss";
+import Skeleton from "./Skeleton";
 
 const User: FC = () => {
   const { id } = useParams();
@@ -32,7 +33,7 @@ const User: FC = () => {
     getUser();
   }, []);
 
-  if (!user) return "Loading";
+  if (!user) return <Skeleton />;
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -90,13 +91,21 @@ const User: FC = () => {
           />
           <input type="text" name="age" value={user.age} onChange={onChange} />
         </div>
-        <input
-          type="text"
-          name="email"
-          value={user.email}
-          onChange={onChange}
-          readOnly
-        />
+        <div className="row">
+          <input
+            type="text"
+            name="avatar"
+            value={user.avatar}
+            onChange={onChange}
+          />
+          <input
+            type="text"
+            name="email"
+            value={user.email}
+            onChange={onChange}
+            readOnly
+          />
+        </div>
       </form>
     </div>
   );
