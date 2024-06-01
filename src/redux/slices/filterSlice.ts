@@ -12,6 +12,7 @@ interface FilterSliceState {
   searchValue: string;
   gender: string;
   age: Age;
+  city: string;
 }
 
 const initialState: FilterSliceState = {
@@ -20,6 +21,7 @@ const initialState: FilterSliceState = {
   searchValue: "",
   gender: "any",
   age: { from: 14, to: 9999 },
+  city: "",
 };
 
 export const filterSlice = createSlice({
@@ -45,10 +47,20 @@ export const filterSlice = createSlice({
     setAge(state, action: PayloadAction<Age>) {
       state.age = action.payload;
     },
+
+    setCity(state, action: PayloadAction<string>) {
+      state.city = action.payload;
+    },
   },
 });
 
-export const { setActivePage, setMeta, setSearchValue, setGender, setAge } =
-  filterSlice.actions;
+export const {
+  setActivePage,
+  setMeta,
+  setSearchValue,
+  setGender,
+  setAge,
+  setCity,
+} = filterSlice.actions;
 
 export default filterSlice.reducer;

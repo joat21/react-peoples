@@ -16,6 +16,7 @@ const AgeFilter: FC = () => {
 
   return (
     <div>
+      <p>Возраст</p>
       <input
         type="number"
         placeholder="От"

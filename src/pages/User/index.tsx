@@ -81,20 +81,29 @@ const User: FC = () => {
         </button>
       </div>
       <form id="user-form" onSubmit={onSubmit}>
-        <input
-          type="text"
-          name="firstName"
-          value={user.firstName}
-          onChange={onChange}
-        />
-        <input
-          type="text"
-          name="lastName"
-          value={user.lastName}
-          onChange={onChange}
-        />
-        <input type="text" name="city" value={user.city} onChange={onChange} />
-        <input type="text" name="age" value={user.age} onChange={onChange} />
+        <div className="row">
+          <input
+            type="text"
+            name="firstName"
+            value={user.firstName}
+            onChange={onChange}
+          />
+          <input
+            type="text"
+            name="lastName"
+            value={user.lastName}
+            onChange={onChange}
+          />
+        </div>
+        <div className="row">
+          <input
+            type="text"
+            name="city"
+            value={user.city}
+            onChange={onChange}
+          />
+          <input type="text" name="age" value={user.age} onChange={onChange} />
+        </div>
         <input
           type="text"
           name="email"
