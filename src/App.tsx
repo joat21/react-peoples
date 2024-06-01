@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import User from "./pages/User";
 import Registration from "./pages/Registation";
 import Authorization from "./pages/Authorization";
+import NotFound from "./pages/NotFound";
 
 import "./scss/App.scss";
 
@@ -55,7 +56,7 @@ function App() {
           <Route path="/user/:id" element={<User />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/authorization" element={<Authorization />} />
-          <Route path="*" element={<h1>Page not found</h1>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </div>
