@@ -6,10 +6,11 @@ type CardProps = {
   firstName: string;
   lastName: string;
   email: string;
+  age: number;
 };
 
 const Card: FC<CardProps> = (props: CardProps) => {
-  const { avatar, firstName, lastName, email } = props;
+  const { avatar, firstName, lastName, email, age } = props;
   return (
     <div className={styles.card}>
       <img src={avatar} alt={`${firstName} ${lastName}`} />

@@ -16,14 +16,24 @@ const User: FC = () => {
   const [user, setUser] = useState<People>();
   const currentUser = useSelector((state: RootState) => state.user.currentUser);
 
+  const getUser = async () => {
+    try {
+      const res = await axios.get(
+        `https://8aacc4e8fbc52395.mokky.dev/peoples/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setUser(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`https://8aacc4e8fbc52395.mokky.dev/peoples/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((res) => setUser(res.data));
+    getUser();
   }, []);
 
   if (!user) return "Loading";
@@ -31,23 +41,31 @@ const User: FC = () => {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    axios.patch(`https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`, user, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    try {
+      axios.patch(
+        `https://8aacc4e8fbc52395.mokky.dev/peoples/${user.id}`,
+        user,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
 
-    const res = await axios.patch(
-      `https://8aacc4e8fbc52395.mokky.dev/users/${user.id}`,
-      user
-    );
+      const res = await axios.patch(
+        `https://8aacc4e8fbc52395.mokky.dev/users/${user.id}`,
+        user
+      );
 
-    if (user.id === currentUser?.id) {
-      dispatch(setCurrentUser(res.data));
-      localStorage.setItem("user", JSON.stringify(res.data));
+      if (user.id === currentUser?.id) {
+        dispatch(setCurrentUser(res.data));
+        localStorage.setItem("user", JSON.stringify(res.data));
+      }
+
+      alert("Изменения сохранены");
+    } catch (error) {
+      console.log(error);
     }
-
-    alert("Изменения сохранены");
   };
 
   return (

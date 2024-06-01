@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,38 +7,26 @@ import { setIsAuthorized } from "../../../redux/slices/currentUserSlice";
 
 import styles from "../Header.module.scss";
 
-const Profile = () => {
+const Profile: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.profile}>
-      <div onClick={() => setIsOpen(!isOpen)}>
+      <Link to={`/user/${user?.id}`} state={user}>
         <img src={user?.avatar} alt={`${user?.firstName} ${user?.lastName}`} />
-      </div>
-      {isOpen && (
-        <div className={styles.popup}>
-          <ul>
-            <li>
-              <Link to={`/user/${user?.id}`} state={user}>
-                Редактировать профиль
-              </Link>
-            </li>
-            <li
-              className={`button ${styles.btn}`}
-              onClick={() => {
-                dispatch(setIsAuthorized(false));
-                navigate("/registration");
-                localStorage.clear();
-              }}
-            >
-              Выйти
-            </li>
-          </ul>
-        </div>
-      )}
+      </Link>
+      <button
+        className={`button ${styles.btn}`}
+        onClick={() => {
+          dispatch(setIsAuthorized(false));
+          navigate("/registration");
+          localStorage.clear();
+        }}
+      >
+        Выйти
+      </button>
     </div>
   );
 };

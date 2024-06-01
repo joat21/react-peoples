@@ -4,25 +4,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { setSearchValue } from "../../../redux/slices/filterSlice";
 
-import styles from "../Home.module.scss";
-
-const Filter: FC = () => {
+const Search: FC = () => {
   const dispatch = useDispatch();
   const searchValue = useSelector(
     (state: RootState) => state.filter.searchValue
   );
-
   return (
-    <div className={styles.filter}>
-      <input
-        className="input"
-        type="text"
-        placeholder="Поиск..."
-        value={searchValue}
-        onChange={(e) => dispatch(setSearchValue(e.target.value))}
-      />
-    </div>
+    <input
+      className="input"
+      type="text"
+      placeholder="Поиск..."
+      value={searchValue}
+      onChange={(e) => dispatch(setSearchValue(e.target.value))}
+    />
   );
 };
 
-export default Filter;
+export default Search;

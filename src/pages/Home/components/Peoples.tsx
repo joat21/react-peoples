@@ -14,7 +14,7 @@ type PeoplesProps = {
 
 const Peoples: FC<PeoplesProps> = ({ data }: PeoplesProps) => {
   return (
-    <>
+    <div>
       <div className={styles.items}>
         {data.map((item) => (
           <div key={item.id} className={styles["card-wrapper"]}>
@@ -25,7 +25,7 @@ const Peoples: FC<PeoplesProps> = ({ data }: PeoplesProps) => {
         ))}
       </div>
       <Pagination />
-    </>
+    </div>
   );
 };
 

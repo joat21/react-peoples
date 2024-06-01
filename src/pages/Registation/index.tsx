@@ -31,31 +31,30 @@ const Registration: FC = () => {
     }
     const { firstName, lastName, email, avatar } = userDataToSend;
 
-    axios
-      .post("https://8aacc4e8fbc52395.mokky.dev/register", userDataToSend)
-      .then((res) => res.data)
-      .then((data) => {
-        localStorage.setItem("token", data.token);
-        dispatch(setCurrentUser(data.data));
-        return localStorage.getItem("token");
-      })
-      .then((token) => {
-        axios
-          .post(
-            "https://8aacc4e8fbc52395.mokky.dev/peoples",
-            { firstName, lastName, email, avatar },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          )
-          .then((res) => res.data)
-          .then(() => {
-            dispatch(setIsAuthorized(true));
-            navigate("/");
-          });
-      });
+    try {
+      const { data } = await axios.post(
+        "https://8aacc4e8fbc52395.mokky.dev/register",
+        userDataToSend
+      );
+
+      localStorage.setItem("token", data.token);
+      dispatch(setCurrentUser(data.data));
+
+      await axios.post(
+        "https://8aacc4e8fbc52395.mokky.dev/peoples",
+        { firstName, lastName, email, avatar },
+        {
+          headers: {
+            Authorization: `Bearer ${data.token}`,
+          },
+        }
+      );
+
+      dispatch(setIsAuthorized(true));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

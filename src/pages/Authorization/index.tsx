@@ -17,17 +17,22 @@ const Authorization: FC = () => {
 
   const navigate = useNavigate();
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    axios
-      .post("https://8aacc4e8fbc52395.mokky.dev/auth", authData)
-      .then((res) => res.data)
-      .then((data) => {
-        localStorage.setItem("token", data.token);
-        dispatch(setCurrentUser(data.data));
-        dispatch(setIsAuthorized(true));
-        navigate("/");
-      });
+
+    try {
+      const { data } = await axios.post(
+        "https://8aacc4e8fbc52395.mokky.dev/auth",
+        authData
+      );
+
+      localStorage.setItem("token", data.token);
+      dispatch(setCurrentUser(data.data));
+      dispatch(setIsAuthorized(true));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

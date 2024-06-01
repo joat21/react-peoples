@@ -16,8 +16,6 @@
     justify-content: space-between;
     padding-top: 0;
     padding-bottom: 0;
-    // width: $container-width;
-    // margin: 0 auto;
 
     @media (max-width: 480px) {
       flex-direction: column;
@@ -93,6 +91,18 @@
       width: 50px;
       border-radius: 50%;
       cursor: pointer;
+    }
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    background: none;
+    border: none;
+
+    &::after {
+      color: red;
     }
   }
 
